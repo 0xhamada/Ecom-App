@@ -117,7 +117,10 @@ namespace Ecom.Infrastructure.Data.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("nvarchar(100)");
 
-                    b.Property<decimal>("Price")
+                    b.Property<decimal>("NewPrice")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<decimal>("OldPrice")
                         .HasColumnType("decimal(18,2)");
 
                     b.HasKey("Id");
@@ -133,7 +136,8 @@ namespace Ecom.Infrastructure.Data.Migrations
                             CategoryId = 1,
                             Description = "Latest smartphone with advanced features",
                             Name = "Smartphone",
-                            Price = 699.99m
+                            NewPrice = 699.99m,
+                            OldPrice = 0m
                         },
                         new
                         {
@@ -141,7 +145,8 @@ namespace Ecom.Infrastructure.Data.Migrations
                             CategoryId = 1,
                             Description = "High-performance laptop for work and gaming",
                             Name = "Laptop",
-                            Price = 1299.99m
+                            NewPrice = 1299.99m,
+                            OldPrice = 0m
                         },
                         new
                         {
@@ -149,7 +154,8 @@ namespace Ecom.Infrastructure.Data.Migrations
                             CategoryId = 2,
                             Description = "Comfortable cotton t-shirt in various sizes",
                             Name = "T-Shirt",
-                            Price = 19.99m
+                            NewPrice = 19.99m,
+                            OldPrice = 0m
                         },
                         new
                         {
@@ -157,7 +163,8 @@ namespace Ecom.Infrastructure.Data.Migrations
                             CategoryId = 2,
                             Description = "Stylish denim jeans for casual wear",
                             Name = "Jeans",
-                            Price = 49.99m
+                            NewPrice = 49.99m,
+                            OldPrice = 0m
                         },
                         new
                         {
@@ -165,7 +172,8 @@ namespace Ecom.Infrastructure.Data.Migrations
                             CategoryId = 3,
                             Description = "Bestselling fiction novel by a renowned author",
                             Name = "Novel",
-                            Price = 14.99m
+                            NewPrice = 14.99m,
+                            OldPrice = 0m
                         },
                         new
                         {
@@ -173,7 +181,8 @@ namespace Ecom.Infrastructure.Data.Migrations
                             CategoryId = 3,
                             Description = "Collection of delicious recipes for home cooking",
                             Name = "Cookbook",
-                            Price = 24.99m
+                            NewPrice = 24.99m,
+                            OldPrice = 0m
                         },
                         new
                         {
@@ -181,7 +190,8 @@ namespace Ecom.Infrastructure.Data.Migrations
                             CategoryId = 4,
                             Description = "Powerful blender for smoothies and food preparation",
                             Name = "Blender",
-                            Price = 89.99m
+                            NewPrice = 89.99m,
+                            OldPrice = 0m
                         },
                         new
                         {
@@ -189,7 +199,8 @@ namespace Ecom.Infrastructure.Data.Migrations
                             CategoryId = 4,
                             Description = "Efficient vacuum cleaner for home cleaning",
                             Name = "Vacuum Cleaner",
-                            Price = 149.99m
+                            NewPrice = 149.99m,
+                            OldPrice = 0m
                         },
                         new
                         {
@@ -197,7 +208,8 @@ namespace Ecom.Infrastructure.Data.Migrations
                             CategoryId = 5,
                             Description = "Non-slip yoga mat for exercise and meditation",
                             Name = "Yoga Mat",
-                            Price = 29.99m
+                            NewPrice = 29.99m,
+                            OldPrice = 0m
                         },
                         new
                         {
@@ -205,35 +217,29 @@ namespace Ecom.Infrastructure.Data.Migrations
                             CategoryId = 5,
                             Description = "Durable camping tent for outdoor adventures",
                             Name = "Tent",
-                            Price = 199.99m
+                            NewPrice = 199.99m,
+                            OldPrice = 0m
                         });
                 });
 
             modelBuilder.Entity("Ecom.Core.Entities.Product.Photo", b =>
                 {
-                    b.HasOne("Ecom.Core.Entities.Product.Product", "Product")
+                    b.HasOne("Ecom.Core.Entities.Product.Product", null)
                         .WithMany("Photos")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Product");
                 });
 
             modelBuilder.Entity("Ecom.Core.Entities.Product.Product", b =>
                 {
                     b.HasOne("Ecom.Core.Entities.Product.Category", "Categories")
-                        .WithMany("Products")
+                        .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Categories");
-                });
-
-            modelBuilder.Entity("Ecom.Core.Entities.Product.Category", b =>
-                {
-                    b.Navigation("Products");
                 });
 
             modelBuilder.Entity("Ecom.Core.Entities.Product.Product", b =>

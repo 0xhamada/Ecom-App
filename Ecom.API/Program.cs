@@ -1,4 +1,5 @@
 
+using Ecom.API.Mapping;
 using Ecom.Infrastructure;
 
 namespace Ecom.API
@@ -15,7 +16,10 @@ namespace Ecom.API
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
             builder.Services.AddOpenApi();
             builder.Services.InfrastructureConfiguration(builder.Configuration);
-
+            builder.Services.AddEndpointsApiExplorer();
+            builder.Services.AddSwaggerGen();
+            builder.Services.AddAutoMapper(cfg => { } , typeof(CategoryMapping).Assembly);
+            
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -25,7 +29,9 @@ namespace Ecom.API
             }
 
             app.UseHttpsRedirection();
-
+            app.UseStaticFiles();
+            app.UseSwagger();
+            app.UseSwaggerUI();
             app.UseAuthorization();
 
 
